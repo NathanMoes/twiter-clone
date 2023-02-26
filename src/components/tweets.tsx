@@ -1,4 +1,13 @@
-import { IonContent, IonHeader, IonPage, IonToolbar } from "@ionic/react";
+import {
+  IonButton,
+  IonCol,
+  IonContent,
+  IonHeader,
+  IonItem,
+  IonPage,
+  IonRow,
+  IonToolbar,
+} from "@ionic/react";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -25,6 +34,32 @@ const Tweet = (props: {
       </button>
     </td>
   </tr>
+);
+
+const Tweettest = (props: {
+  tweet: { name: string; tweetText: string; likes: number; _id: number };
+  deleteTweet: (number: number) => {};
+}) => (
+  <IonItem>
+    <IonRow>
+      <IonCol size="4">{props.tweet.name}</IonCol>
+      <IonCol size="4">{props.tweet.tweetText}</IonCol>
+      <IonCol size="4">
+        <Link className="btn btn-link" to={`/edit/${props.tweet._id}`}>
+          Edit
+        </Link>{" "}
+        |
+        <button
+          className="btn btn-link"
+          onClick={() => {
+            props.deleteTweet(props.tweet._id);
+          }}
+        >
+          Delete
+        </button>
+      </IonCol>
+    </IonRow>
+  </IonItem>
 );
 
 export default function TweetList() {
@@ -67,7 +102,7 @@ export default function TweetList() {
   }
 
   // This method will map out the records on the table
-  function recordList() {
+  function tweetList() {
     return tweets.map(
       (tweet: {
         name: string;
@@ -94,21 +129,7 @@ export default function TweetList() {
           <IonHeader>Tweets</IonHeader>
         </IonToolbar>
       </IonHeader>
-      <IonContent>
-        <div>
-          <h3>Record List</h3>
-          <table className="table table-striped" style={{ marginTop: 20 }}>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Text</th>
-                <th>Likes</th>
-              </tr>
-            </thead>
-            <tbody>{recordList()}</tbody>
-          </table>
-        </div>
-      </IonContent>
+      <IonContent>{tweetList()}</IonContent>
     </IonPage>
   );
 }
