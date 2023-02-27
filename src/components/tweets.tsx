@@ -2,6 +2,7 @@ import {
   IonButton,
   IonCol,
   IonContent,
+  IonGrid,
   IonHeader,
   IonItem,
   IonPage,
@@ -40,26 +41,26 @@ const Tweettest = (props: {
   tweet: { name: string; tweetText: string; likes: number; _id: number };
   deleteTweet: (number: number) => {};
 }) => (
-  <IonItem>
-    <IonRow>
-      <IonCol size="4">{props.tweet.name}</IonCol>
-      <IonCol size="4">{props.tweet.tweetText}</IonCol>
-      <IonCol size="4">
-        <Link className="btn btn-link" to={`/edit/${props.tweet._id}`}>
-          Edit
-        </Link>{" "}
-        |
-        <button
-          className="btn btn-link"
-          onClick={() => {
-            props.deleteTweet(props.tweet._id);
-          }}
-        >
-          Delete
-        </button>
-      </IonCol>
-    </IonRow>
-  </IonItem>
+  <IonRow className="d-flex bg-light rounded m-3">
+    <IonCol size="1">{props.tweet.name}</IonCol>
+    <IonCol size="8" className="py-5">
+      <p className="text-center">{props.tweet.tweetText}</p>
+    </IonCol>
+    <IonCol size="3">
+      <Link className="btn btn-link" to={`/edit/${props.tweet._id}`}>
+        Edit
+      </Link>{" "}
+      |
+      <button
+        className="btn btn-link"
+        onClick={() => {
+          props.deleteTweet(props.tweet._id);
+        }}
+      >
+        Delete
+      </button>
+    </IonCol>
+  </IonRow>
 );
 
 export default function TweetList() {
@@ -111,7 +112,7 @@ export default function TweetList() {
         _id: number;
       }) => {
         return (
-          <Tweet
+          <Tweettest
             tweet={tweet}
             deleteTweet={() => deleteTweet(tweet._id)}
             key={tweet._id}
@@ -126,10 +127,12 @@ export default function TweetList() {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonHeader>Tweets</IonHeader>
+          <IonHeader className="px-5">Tweets</IonHeader>
         </IonToolbar>
       </IonHeader>
-      <IonContent>{tweetList()}</IonContent>
+      <IonContent>
+        <IonGrid>{tweetList()}</IonGrid>
+      </IonContent>
     </IonPage>
   );
 }

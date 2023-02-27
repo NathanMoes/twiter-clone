@@ -33,7 +33,7 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
-import RecordList from "./components/recordList";
+
 import Edit from "./components/edit";
 import CreateTweet from "./components/createTweet";
 import TweetList from "./components/tweets";
@@ -45,7 +45,6 @@ const App: React.FC = () => (
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
-          <Route exact path="/" component={RecordList}></Route>
           <Route path="/edit/:id" component={Edit}></Route>
           <Route path="/createTweet" component={CreateTweet} />
           <Route path="/tweets" component={TweetList} />

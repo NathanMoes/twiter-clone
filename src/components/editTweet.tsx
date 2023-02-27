@@ -40,13 +40,18 @@ export default function Edit() {
   }, [params.id, navigate]);
 
   // These methods will update the state properties.
-  function updateForm(value) {
+  function updateForm(value: {
+    name?: string;
+    position?: string;
+    level?: string;
+    records?: never[];
+  }) {
     return setForm((prev) => {
       return { ...prev, ...value };
     });
   }
 
-  async function onSubmit(e) {
+  async function onSubmit(e: { preventDefault: () => void }) {
     e.preventDefault();
     const editedPerson = {
       name: form.name,

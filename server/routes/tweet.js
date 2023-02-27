@@ -20,7 +20,7 @@ tweetRoutes.route("/tweets").get(async function (req, response) {
     .find({})
     .toArray()
     .then((data) => {
-      console.log(data);
+      //   console.log(data);
       response.json(data);
     });
 });
@@ -28,11 +28,21 @@ tweetRoutes.route("/tweets").get(async function (req, response) {
 // This section will help you get a single tweet by id
 tweetRoutes.route("/tweet/:id").get(function (req, res) {
   let db_connect = dbo.getDb();
-  let myquery = { _id: ObjectId(req.params.id) };
-  db_connect.collection("tweets").findOne(myquery, function (err, result) {
-    if (err) throw err;
-    res.json(result);
-  });
+  let myquery = { _id: new ObjectId(req.params.id) };
+  db_connect
+    .collection("tweets")
+    .findOne(myquery)
+    .toArray()
+    .then((data) => {
+      res.json(data);
+    })
+    .error((err) => {
+      throw err;
+    });
+  /* , function (err, result) {
+      if (err) throw err;
+      res.json(result);
+    } */
 });
 
 // This section will help you create a new tweet.
@@ -52,7 +62,7 @@ tweetRoutes.route("/tweet/add").post(function (req, response) {
 // This section will help you update a tweet by id.
 tweetRoutes.route("/update/:id").post(function (req, response) {
   let db_connect = dbo.getDb();
-  let myquery = { _id: ObjectId(req.params.id) };
+  let myquery = { _id: new ObjectId(req.params.id) };
   let newvalues = {
     $set: {
       name: req.body.name,
@@ -65,6 +75,7 @@ tweetRoutes.route("/update/:id").post(function (req, response) {
     .updateOne(myquery, newvalues, function (err, res) {
       if (err) throw err;
       console.log("1 document updated");
+      console.log(err);
       response.json(res);
     });
 });
@@ -81,3 +92,25 @@ tweetRoutes.route("/:id").delete((req, response) => {
 });
 
 module.exports = tweetRoutes;
+
+// // how to select by one in mongo db server side?
+// export async function getCreaterPubGameId(authorID: string) {
+//   await client.connect();
+//   console.log('Connected successfully to server : update, find or insertData');
+//   const db = client.db(dbName);
+//   const collection = db.collection('games');
+
+// // I have to use 'projection'
+//   return new Promise(function (resolve, reject) {
+//     collection.find({ authorID }, { projection: { _id: true }).toArray((err, doc) => {
+//       if (err) {
+//         reject(err);
+//       } else {
+//         console.log('getAlldata : ', doc);
+//         resolve(doc);
+//       }
+//     });
+//   });
+// }
+
+//Source: https://stackoverflow.com/questions/70388802
