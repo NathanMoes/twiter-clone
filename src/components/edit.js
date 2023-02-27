@@ -13,14 +13,15 @@ export default function Edit() {
 
   const fetchData = useCallback(async () => {
     const id = params.id.toString();
-
+    console.log("got id");
     const response = await fetch(
       `http://localhost:5000/tweet/${id.toString()}`,
       {
         method: "GET",
       }
     );
-    console.log("Sad times");
+    console.log("got data");
+
     if (!response.ok) {
       const message = `An error has occurred: ${response.statusText}`;
       window.alert(message);

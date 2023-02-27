@@ -1,12 +1,15 @@
 import { Redirect, Route } from "react-router-dom";
 import {
   IonApp,
+  IonCol,
   IonIcon,
   IonLabel,
   IonRouterOutlet,
+  IonRow,
   IonTabBar,
   IonTabButton,
   IonTabs,
+  IonToolbar,
   setupIonicReact,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
@@ -37,6 +40,9 @@ import "./theme/variables.css";
 import Edit from "./components/edit";
 import CreateTweet from "./components/createTweet";
 import TweetList from "./components/tweets";
+import createUser from "./components/createUser";
+import UserList from "./components/userList";
+import NavBar from "./components/navbar";
 
 setupIonicReact();
 
@@ -45,9 +51,13 @@ const App: React.FC = () => (
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
-          <Route path="/edit/:id" component={Edit}></Route>
-          <Route path="/createTweet" component={CreateTweet} />
-          <Route path="/tweets" component={TweetList} />
+          <Route path="/" exact component={TweetList} />
+          <Route path="/edit/:id" exact component={Edit}></Route>
+          <Route path="/createTweet" exact component={CreateTweet} />
+          <Route path="/tweets" exact component={TweetList} />
+          <Route path="/users" exact component={UserList} />
+
+          <Route path="/createUser" exact component={createUser} />
           <Route exact path="/tab1">
             <Tab1 />
           </Route>
@@ -67,9 +77,9 @@ const App: React.FC = () => (
             <IonIcon aria-hidden="true" icon={ellipse} />
             <IonLabel>Create tweets</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="tab3" href="/tab3">
+          <IonTabButton tab="tab3" href="/createUser">
             <IonIcon aria-hidden="true" icon={square} />
-            <IonLabel>Tab 3</IonLabel>
+            <IonLabel>Create user</IonLabel>
           </IonTabButton>
         </IonTabBar>
       </IonTabs>

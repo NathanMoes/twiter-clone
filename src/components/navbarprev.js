@@ -7,7 +7,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import { NavLink } from "react-router-dom";
 
 // Here, we display our Navbar
-export default function Navbar() {
+export default function NavbarPrev() {
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">

@@ -26,23 +26,23 @@ tweetRoutes.route("/tweets").get(async function (req, response) {
 });
 
 // This section will help you get a single tweet by id
-tweetRoutes.route("/tweet/:id").get(function (req, res) {
+tweetRoutes.route("/tweet/:id").get(async function (req, res) {
   let db_connect = dbo.getDb();
   let myquery = { _id: new ObjectId(req.params.id) };
   db_connect
     .collection("tweets")
-    .findOne(myquery)
-    .toArray()
+    .findOne(myquery, function (err, result) {
+      if (err) {
+        console.log(err);
+        throw err;
+      }
+      res.json(result);
+
+      console.log(result);
+    })
     .then((data) => {
       res.json(data);
-    })
-    .error((err) => {
-      throw err;
     });
-  /* , function (err, result) {
-      if (err) throw err;
-      res.json(result);
-    } */
 });
 
 // This section will help you create a new tweet.
@@ -92,25 +92,3 @@ tweetRoutes.route("/:id").delete((req, response) => {
 });
 
 module.exports = tweetRoutes;
-
-// // how to select by one in mongo db server side?
-// export async function getCreaterPubGameId(authorID: string) {
-//   await client.connect();
-//   console.log('Connected successfully to server : update, find or insertData');
-//   const db = client.db(dbName);
-//   const collection = db.collection('games');
-
-// // I have to use 'projection'
-//   return new Promise(function (resolve, reject) {
-//     collection.find({ authorID }, { projection: { _id: true }).toArray((err, doc) => {
-//       if (err) {
-//         reject(err);
-//       } else {
-//         console.log('getAlldata : ', doc);
-//         resolve(doc);
-//       }
-//     });
-//   });
-// }
-
-//Source: https://stackoverflow.com/questions/70388802
