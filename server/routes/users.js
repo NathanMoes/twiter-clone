@@ -1,3 +1,4 @@
+const { response } = require("express");
 const express = require("express");
 
 // userRoutes is an instance of the express router.
@@ -38,6 +39,42 @@ userRoutes.route("/users/add").post((req, res) => {
     })
     .catch((err) => {
       console.error(err);
+    });
+});
+
+userRoutes.route("/user/:userName").get((req, res) => {
+  let db_connect = dbo.getDb();
+  let myquery = { name: req.params.userName };
+
+  db_connect
+    .collection("users")
+    .findOne(myquery)
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+});
+
+userRoutes.route("/userupdate/:userName").post((req, res) => {
+  let db_connect = dbo.getDb();
+  let myquery = { name: req.params.userName };
+  let newvalues = {
+    $set: {
+      name: req.params.userName,
+      photo: req.body.photo,
+      password: req.body.password,
+    },
+  };
+  db_connect
+    .collection("users")
+    .updateOne(myquery, newvalues, (err, res) => {
+      if (err) throw err;
+      response.json(res);
+    })
+    .then((data) => {
+      res.json(data);
     });
 });
 

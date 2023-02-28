@@ -42,7 +42,8 @@ import CreateTweet from "./components/createTweet";
 import TweetList from "./components/tweets";
 import createUser from "./components/createUser";
 import UserList from "./components/userList";
-import NavBar from "./components/navbar";
+import LoginPage from "./components/loginPage";
+import Profile from "./components/profile";
 
 setupIonicReact();
 
@@ -56,8 +57,9 @@ const App: React.FC = () => (
           <Route path="/createTweet" exact component={CreateTweet} />
           <Route path="/tweets" exact component={TweetList} />
           <Route path="/users" exact component={UserList} />
-
+          <Route path="/login" exact component={LoginPage} />
           <Route path="/createUser" exact component={createUser} />
+          <Route path="/profile" exact component={Profile} />
           <Route exact path="/tab1">
             <Tab1 />
           </Route>

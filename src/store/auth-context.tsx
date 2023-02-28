@@ -7,9 +7,10 @@ import {
 } from "react";
 
 const AuthContext = createContext({
-  user: null,
+  user: "",
   logedin: false,
   loggin: (): void => {},
+  setUser: function name(params: any) {},
 });
 
 export const useAuthContext = () => useContext(AuthContext);
@@ -17,7 +18,7 @@ export const useAuthContext = () => useContext(AuthContext);
 export const AuthContextProvider: React.FC<{ children: any }> = (
   props: any
 ) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState("");
   const [logedin, setLogedin] = useState(false);
 
   const loggin = (): void => {
@@ -25,7 +26,7 @@ export const AuthContextProvider: React.FC<{ children: any }> = (
   };
 
   return (
-    <AuthContext.Provider value={{ user, logedin, loggin }}>
+    <AuthContext.Provider value={{ user, logedin, loggin, setUser }}>
       {props.children}
     </AuthContext.Provider>
   );

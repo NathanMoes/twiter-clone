@@ -111,11 +111,8 @@ export default function TweetList() {
   return (
     <IonPage>
       <NavBar>
-        <IonTitle>tweets</IonTitle>
+        <IonTitle className="pt-1">Tweets</IonTitle>
       </NavBar>
-      <IonHeader>
-        <IonHeader className="px-5"></IonHeader>
-      </IonHeader>
       <IonContent fullscreen={true} className="ion-padding">
         <IonGrid className="mt-0">{tweetList()}</IonGrid>
       </IonContent>

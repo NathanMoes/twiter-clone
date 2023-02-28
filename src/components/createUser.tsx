@@ -7,6 +7,7 @@ import {
 } from "@ionic/react";
 import React, { useState } from "react";
 import { useHistory } from "react-router";
+import NavBar from "./navbar";
 
 export default function CreateUser() {
   const [form, setForm] = useState({
@@ -57,11 +58,10 @@ export default function CreateUser() {
   // This following section will display the form that takes the input from the user.
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Tweet add</IonTitle>
-        </IonToolbar>
-      </IonHeader>
+      <NavBar>
+        <IonTitle>Tweet add</IonTitle>
+      </NavBar>
+
       <IonContent>
         <div>
           <h3>Create New User</h3>
