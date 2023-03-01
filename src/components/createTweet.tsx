@@ -14,6 +14,7 @@ export default function CreateTweet() {
     name: "",
     tweetText: "",
     likes: "",
+    date: "",
   });
   const navigate = useHistory();
 
@@ -22,7 +23,9 @@ export default function CreateTweet() {
     name?: string;
     tweetText?: string;
     likes?: string;
+    date?: string;
   }) {
+    form.date = new Date().toUTCString();
     return setForm((prev) => {
       return { ...prev, ...value };
     });
@@ -51,7 +54,7 @@ export default function CreateTweet() {
     } catch (e) {
       console.error(e);
     }
-    setForm({ name: "", tweetText: "", likes: "" });
+    setForm({ name: "", tweetText: "", likes: "", date: "" });
     navigate.push("/"); // note this seems to make an error
   }
 

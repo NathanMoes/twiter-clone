@@ -21,15 +21,25 @@ export default function TweetList() {
   const history = useHistory();
   const [tweets, setTweets] = useState([]);
   const Tweettest = (props: {
-    tweet: { name: string; tweetText: string; likes: number; _id: number };
+    tweet: {
+      name: string;
+      tweetText: string;
+      likes: number;
+      _id: number;
+      date: string;
+    };
     deleteTweet: (number: number) => {};
   }) => (
-    <IonRow className="d-flex bg-light rounded m-3">
+    <IonRow className="d-flex bg-light rounded my-4 p-3">
       <IonCol size="1">{props.tweet.name}</IonCol>
       <IonCol size="8" className="py-5">
         <p className="text-center">{props.tweet.tweetText}</p>
       </IonCol>
-      <IonCol size="3">
+
+      <IonCol size="6">
+        <small className="text-center">{props.tweet.date}</small>
+      </IonCol>
+      <IonCol size="2" offset="4">
         <Link
           className="btn btn-link"
           to={`/edit/${props.tweet._id}`}
@@ -39,7 +49,6 @@ export default function TweetList() {
         >
           Edit
         </Link>{" "}
-        |
         <button
           className="btn btn-link"
           onClick={() => {
@@ -94,6 +103,7 @@ export default function TweetList() {
         name: string;
         tweetText: string;
         likes: number;
+        date: string;
         _id: number;
       }) => {
         return (

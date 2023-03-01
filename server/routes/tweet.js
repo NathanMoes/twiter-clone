@@ -52,6 +52,7 @@ tweetRoutes.route("/tweet/add").post(function (req, response) {
     name: req.body.name,
     tweetText: req.body.tweetText,
     likes: req.body.likes,
+    date: req.body.date,
   };
   db_connect.collection("tweets").insertOne(myobj, function (err, res) {
     if (err) throw err;
